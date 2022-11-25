@@ -1,37 +1,50 @@
-patches-own [energy moisture stadium]
-turtles-own [tEnergy tMoisture]
-
+patches-own [
+  energy ;integer  (energylevel of patch)
+  moisture ;integer (moisturelevel of patch)
+  stadium ;integer (growthstadium of patch)
+]
+turtles-own [
+  turtleEnergy ;integer (energylevel of turtle)
+  turtleMoisture ;integer (moisturelevel of turtle)
+]
 
 to setup
   clear-all
   reset-ticks
-  create-turtles 3 [
-    set tEnergy true
-  ]
-  create-turtles 1 [
-    set tMoisture true
-  ]
+
   reset-ticks
   ask turtles [pen-down]
 end
 
-
 to go
-  ask turtles[
-    if tEnergy = true AND energy >= 1 [forward 1]
-    if tMoisture = true AND moisture >= 1 [forward 1]
+  ;creates turtles at random positions
+  create-turtles energyTurtles [
+    set turtleEnergy 1
+    setxy random-xcor random-ycor
   ]
-end
+  create-turtles moistureTurtles [
+    set turtleMoisture 1
+    setxy random-xcor random-ycor
+  ]
 
-;if turtle is tEnergy, add 1 to energy of the patch the turtle is on.
-to energy+
+  ;if the difference between energy and moisture is greater than 5, set the patchcolor to white (white is dead)
   ask turtles [
-    if tEnergy = true [
-      let x xcor
-      let y ycor
-      ask patch x y [
+  let deltaEnergyMoisture abs(energy - moisture)
+        (ifelse
+          pcolor = 25 OR pcolor = 99 []
+          deltaEnergyMoisture > 5 [
+            set pcolor 99
+          ])
+  ]
+
+  ;if energy of turtle >= 1, add 1 to energy of the patch the turtle is on. Then check if the patch can grow
+  ask turtles [
+    if turtleEnergy >= 1 [
+      ask patch xcor ycor [
         set energy energy + 1
-          ;changes color of patch when energy and moisture are a certain number
+
+        if pcolor != 99 [
+          ;if the patch is not dead, change the patchcolor to show growthstadium
           (ifelse
             energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
               set pcolor 33
@@ -56,61 +69,61 @@ to energy+
             energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
               set pcolor 25
               set stadium stadium + 1
-            ])
+            ]
+          )
         ]
+    ]
 
+    ;if the turtle lost all his energy, let the turtle die
+    set turtleEnergy turtleEnergy - 1
+      if turtleEnergy <= 0 [
+        die
       ]
     ]
-end
 
-;if turtle is tMoisture, add 1 to moisture of the patch the turtle is on.
-to moisture+
-   ask turtles [
-    if tMoisture = true [
-      let x xcor
-      let y ycor
-      ask patch x y [
+    ;if moisture of turtle >= 1, add 1 to moisture of the patch the turtle is on. Then check if the patch can grow
+    if turtleMoisture >= 1 [
+      ask patch xcor ycor [
         set moisture moisture + 1
-        ;changes color of patch when energy and moisture are a certain number
-        (ifelse
-          energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
-            set pcolor 33
-            set stadium stadium + 1
-          ]
-          energy >= 10 AND energy <= 15 AND moisture >= 10 AND moisture <= 15 [
-            set pcolor 66
-            set stadium stadium + 1
-          ]
-          energy >= 15 AND energy <= 20 AND moisture >= 15 AND moisture <= 20 [
-            set pcolor 63
-            set stadium stadium + 1
-          ]
-          energy >= 20 AND energy <= 25 AND moisture >= 20 AND moisture <= 25 [
-            set pcolor 46
-            set stadium stadium + 1
-          ]
-          energy >= 25 AND energy <= 30 AND moisture >= 25 AND moisture <= 30 [
-            set pcolor 43
-            set stadium stadium + 1
-          ]
-          energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
-            set pcolor 25
-            set stadium stadium + 1
-        ])
+
+        if pcolor != 99 [
+          ;if the patch is not dead, change the patchcolor to show growthstadium
+
+          (ifelse
+            energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
+              set pcolor 33
+              set stadium stadium + 1
+            ]
+            energy >= 10 AND energy <= 15 AND moisture >= 10 AND moisture <= 15 [
+              set pcolor 66
+              set stadium stadium + 1
+            ]
+            energy >= 15 AND energy <= 20 AND moisture >= 15 AND moisture <= 20 [
+              set pcolor 63
+              set stadium stadium + 1
+            ]
+            energy >= 20 AND energy <= 25 AND moisture >= 20 AND moisture <= 25 [
+              set pcolor 46
+              set stadium stadium + 1
+            ]
+            energy >= 25 AND energy <= 30 AND moisture >= 25 AND moisture <= 30 [
+              set pcolor 43
+              set stadium stadium + 1
+            ]
+            energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
+              set pcolor 25
+              set stadium stadium + 1
+          ])
+        ]
+      ]
+
+      ;if the turtle lost all his moisture, let the turtle die
+      set turtleMoisture turtleMoisture - 1
+      if turtleMoisture <= 0 [
+        die
       ]
     ]
   ]
-end
-
-
-
-
-;not important
-to dood
-ask turtles [
-  if not any? turtles-on patch-ahead 50
-    [set pcolor 15 ]
-]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -174,56 +187,35 @@ NIL
 NIL
 1
 
-BUTTON
-8
-59
-71
-92
-NIL
-dood\n
-T
+SLIDER
+9
+78
+181
+111
+energyTurtles
+energyTurtles
+0
+100
+100.0
 1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
 1
+NIL
+HORIZONTAL
 
-BUTTON
-10
+SLIDER
+12
 130
-90
+184
 163
-NIL
-energy+
-NIL
+moistureTurtles
+moistureTurtles
+0
+100
+100.0
 1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
 1
-
-BUTTON
-16
-189
-104
-222
 NIL
-moisture+
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
