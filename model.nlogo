@@ -19,11 +19,11 @@ end
 to go
   ;creates turtles at random positions
   create-turtles energyTurtles [
-    set turtleEnergy 1
+    set turtleEnergy amountSunlight
     setxy random-xcor random-ycor
   ]
   create-turtles moistureTurtles [
-    set turtleMoisture 1
+    set turtleMoisture amountRain
     setxy random-xcor random-ycor
   ]
 
@@ -203,15 +203,65 @@ NIL
 HORIZONTAL
 
 SLIDER
-12
-130
-184
-163
+8
+121
+180
+154
 moistureTurtles
 moistureTurtles
 0
 100
 100.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+716
+35
+866
+53
+NIL
+11
+0.0
+1
+
+TEXTBOX
+681
+12
+965
+199
+seed: black\ngrown seed: brown\ngerminated seed: light green\nsmall plant: dark green\nmedium plant: light yellow\nlarge plant: dark yellow\nready to be harvested: orange\ndead: white
+14
+0.0
+1
+
+SLIDER
+9
+166
+181
+199
+amountSunlight
+amountSunlight
+0
+5
+1.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+9
+212
+181
+245
+amountRain
+amountRain
+0
+5
+1.0
 1
 1
 NIL
