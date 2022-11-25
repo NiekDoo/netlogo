@@ -122,6 +122,9 @@ to go
       if turtleMoisture <= 0 [
         die
       ]
+      ; stopding moet hier :)
+
+
     ]
   ]
 end
