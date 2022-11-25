@@ -1,30 +1,111 @@
-patches-own [moisture energy]
+patches-own [energy moisture stadium]
+turtles-own [tEnergy tMoisture]
 
 
 to setup
   clear-all
   reset-ticks
-  create-turtles 2
+  create-turtles 3 [
+    set tEnergy true
+  ]
+  create-turtles 1 [
+    set tMoisture true
+  ]
+  reset-ticks
+  ask turtles [pen-down]
 end
+
 
 to go
   ask turtles[
-    if energy = 1 [forward 1]
+    if tEnergy = true AND energy >= 1 [forward 1]
+    if tMoisture = true AND moisture >= 1 [forward 1]
   ]
 end
 
+;if turtle is tEnergy, add 1 to energy of the patch the turtle is on.
 to energy+
-  let x 0
-  let y 0
-  ask turtles [set x xcor]
-  ask turtles [set y ycor]
-  ask patch x y [
-    set energy energy + 1
+  ask turtles [
+    if tEnergy = true [
+      let x xcor
+      let y ycor
+      ask patch x y [
+        set energy energy + 1
+          ;changes color of patch when energy and moisture are a certain number
+          (ifelse
+            energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
+              set pcolor 33
+              set stadium stadium + 1
+            ]
+            energy >= 10 AND energy <= 15 AND moisture >= 10 AND moisture <= 15 [
+              set pcolor 66
+              set stadium stadium + 1
+            ]
+            energy >= 15 AND energy <= 20 AND moisture >= 15 AND moisture <= 20 [
+              set pcolor 63
+              set stadium stadium + 1
+            ]
+            energy >= 20 AND energy <= 25 AND moisture >= 20 AND moisture <= 25 [
+              set pcolor 46
+              set stadium stadium + 1
+            ]
+            energy >= 25 AND energy <= 30 AND moisture >= 25 AND moisture <= 30 [
+              set pcolor 43
+              set stadium stadium + 1
+            ]
+            energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
+              set pcolor 25
+              set stadium stadium + 1
+            ])
+        ]
+
+      ]
+    ]
+end
+
+;if turtle is tMoisture, add 1 to moisture of the patch the turtle is on.
+to moisture+
+   ask turtles [
+    if tMoisture = true [
+      let x xcor
+      let y ycor
+      ask patch x y [
+        set moisture moisture + 1
+        ;changes color of patch when energy and moisture are a certain number
+        (ifelse
+          energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
+            set pcolor 33
+            set stadium stadium + 1
+          ]
+          energy >= 10 AND energy <= 15 AND moisture >= 10 AND moisture <= 15 [
+            set pcolor 66
+            set stadium stadium + 1
+          ]
+          energy >= 15 AND energy <= 20 AND moisture >= 15 AND moisture <= 20 [
+            set pcolor 63
+            set stadium stadium + 1
+          ]
+          energy >= 20 AND energy <= 25 AND moisture >= 20 AND moisture <= 25 [
+            set pcolor 46
+            set stadium stadium + 1
+          ]
+          energy >= 25 AND energy <= 30 AND moisture >= 25 AND moisture <= 30 [
+            set pcolor 43
+            set stadium stadium + 1
+          ]
+          energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
+            set pcolor 25
+            set stadium stadium + 1
+        ])
+      ]
+    ]
   ]
 end
 
 
 
+
+;not important
 to dood
 ask turtles [
   if not any? turtles-on patch-ahead 50
@@ -83,7 +164,7 @@ BUTTON
 48
 NIL
 go
-NIL
+T
 1
 T
 OBSERVER
@@ -111,12 +192,29 @@ NIL
 1
 
 BUTTON
-17
-134
-97
-167
+10
+130
+90
+163
 NIL
 energy+
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+16
+189
+104
+222
+NIL
+moisture+
 NIL
 1
 T
