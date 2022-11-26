@@ -129,6 +129,7 @@ to go
       if all? patches [pcolor = 99 OR pcolor = 25] [
         ask turtles [die]
     ]
+     e
     ]
 
 
