@@ -48,12 +48,11 @@ to go
   ]
   ifelse checkifcomplete = 1 [
     ask turtles [die]
-
-    output-print "grown seed: " output-print count patches with [pcolor = 66]
-    output-print "germinated seed: " output-print count patches with [pcolor = 63]
-    output-print "small plant: " output-print count patches with [pcolor = 46]
-    output-print "medium plant: " output-print count patches with [pcolor = 43]
-    output-print "large plant: " output-print count patches with [pcolor = 25]
+    output-print "grown seed: " output-print count patches with [pcolor = 33]
+    output-print "germinated seed: " output-print count patches with [pcolor = 66]
+    output-print "small plant: " output-print count patches with [pcolor = 63]
+    output-print "medium plant: " output-print count patches with [pcolor = 46]
+    output-print "large plant: " output-print count patches with [pcolor = 43]
     output-print "ready to be harvested: " output-print count patches with [pcolor = 25]
     output-print "dead: " output-print count patches with [pcolor = 99]
 
@@ -230,7 +229,7 @@ energyTurtles
 energyTurtles
 0
 100
-1.0
+32.0
 1
 1
 NIL
@@ -295,7 +294,7 @@ amountRain
 amountRain
 0
 5
-1.0
+2.0
 1
 1
 NIL
