@@ -48,7 +48,16 @@ to go
   ]
   ifelse checkifcomplete = 1 [
     ask turtles [die]
+    output-print "grown seed: " output-print count patches with [pcolor = 33]
+    output-print "germinated seed: " output-print count patches with [pcolor = 66]
+    output-print "small plant: " output-print count patches with [pcolor = 63]
+    output-print "medium plant: " output-print count patches with [pcolor = 46]
+    output-print "large plant: " output-print count patches with [pcolor = 43]
+    output-print "ready to be harvested: " output-print count patches with [pcolor = 25]
+    output-print "dead: " output-print count patches with [pcolor = 99]
+
     stop
+
   ][
 
     ;if energy of turtle >= 1, add 1 to energy of the patch the turtle is on. Then check if the patch can grow
@@ -151,10 +160,10 @@ to go
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
-10
-647
-448
+308
+11
+745
+449
 -1
 -1
 13.0
@@ -220,7 +229,7 @@ energyTurtles
 energyTurtles
 0
 100
-18.0
+32.0
 1
 1
 NIL
@@ -235,27 +244,27 @@ moistureTurtles
 moistureTurtles
 0
 100
-89.0
+31.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-716
-35
-866
-53
+817
+40
+967
+58
 NIL
 11
 0.0
 1
 
 TEXTBOX
-681
-12
-965
-199
+851
+30
+1135
+217
 seed: black\ngrown seed: brown\ngerminated seed: light green\nsmall plant: dark green\nmedium plant: light yellow\nlarge plant: dark yellow\nready to be harvested: orange\ndead: white
 14
 0.0
@@ -270,7 +279,7 @@ amountSunlight
 amountSunlight
 0
 5
-4.0
+2.0
 1
 1
 NIL
@@ -285,11 +294,18 @@ amountRain
 amountRain
 0
 5
-1.0
+2.0
 1
 1
 NIL
 HORIZONTAL
+
+OUTPUT
+10
+265
+250
+511
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
