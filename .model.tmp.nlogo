@@ -145,7 +145,7 @@ to go
       ]
     ]
   ]
-  tick
+
 
 end
 @#$#@#$#@
@@ -269,7 +269,7 @@ amountSunlight
 amountSunlight
 0
 5
-4.0
+3.0
 1
 1
 NIL
