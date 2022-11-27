@@ -48,8 +48,6 @@ to go
   ]
   ifelse checkifcomplete = 1 [
     ask turtles [die]
-    output-print "seed " output-print count patches with [pcolor = 33]
-
 
     output-print "grown seed: " output-print count patches with [pcolor = 66]
     output-print "germinated seed: " output-print count patches with [pcolor = 63]
@@ -58,7 +56,6 @@ to go
     output-print "large plant: " output-print count patches with [pcolor = 25]
     output-print "ready to be harvested: " output-print count patches with [pcolor = 25]
     output-print "dead: " output-print count patches with [pcolor = 99]
-
 
     stop
 
@@ -164,10 +161,10 @@ to go
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
-10
-647
-448
+308
+11
+745
+449
 -1
 -1
 13.0
@@ -233,7 +230,7 @@ energyTurtles
 energyTurtles
 0
 100
-69.0
+1.0
 1
 1
 NIL
@@ -248,27 +245,27 @@ moistureTurtles
 moistureTurtles
 0
 100
-68.0
+1.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-716
-35
-866
-53
+817
+40
+967
+58
 NIL
 11
 0.0
 1
 
 TEXTBOX
-681
-12
-965
-199
+851
+30
+1135
+217
 seed: black\ngrown seed: brown\ngerminated seed: light green\nsmall plant: dark green\nmedium plant: light yellow\nlarge plant: dark yellow\nready to be harvested: orange\ndead: white
 14
 0.0
