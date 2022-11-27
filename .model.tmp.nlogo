@@ -48,11 +48,117 @@ to go
   ]
   ifelse checkifcomplete = 1 [
     ask turtles [die]
+    output-print "seed " output-print count patches with [pcolor = 33]
+
+
+    output-print "grown seed: " output-print count patches with [pcolor = 66]
+    output-print "germinated seed: " output-print count patches with [pcolor = 63]
+    output-print "small plant: " output-print count patches with [pcolor = 46]
+    output-print "medium plant: " output-print count patches with [pcolor = 43]
+    output-print "large plant: " output-print count patches with [pcolor = 25]
+    output-print "ready to be harvested: " output-print count patches with [pcolor = 25]
+    output-print "dead: " output-print count patches with [pcolor = 99]
+
+
     stop
+
   ][
 
-  ;if energy of turtle >= 1, add 1 to energy of the patch the turtle is on. Then check if the patch can grow
+    ;if energy of turtle >= 1, add 1 to energy of the patch the turtle is on. Then check if the patch can grow
+    ask turtles [
+      ;if all patches are white or orange: die
 
+      if turtleEnergy >= 1 [
+        ask patch xcor ycor [
+          set energy energy + 1
+
+          if pcolor != 99 [
+            ;if the patch is not dead, change the patchcolor to show growthstadium
+            (ifelse
+              energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
+                set pcolor 33
+                set stadium stadium + 1
+              ]
+              energy >= 10 AND energy <= 15 AND moisture >= 10 AND moisture <= 15 [
+                set pcolor 66
+                set stadium stadium + 1
+              ]
+              energy >= 15 AND energy <= 20 AND moisture >= 15 AND moisture <= 20 [
+                set pcolor 63
+                set stadium stadium + 1
+              ]
+              energy >= 20 AND energy <= 25 AND moisture >= 20 AND moisture <= 25 [
+                set pcolor 46
+                set stadium stadium + 1
+              ]
+              energy >= 25 AND energy <= 30 AND moisture >= 25 AND moisture <= 30 [
+                set pcolor 43
+                set stadium stadium + 1
+              ]
+              energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
+                set pcolor 25
+                set stadium stadium + 1
+              ]
+            )
+          ]
+        ]
+
+        ;if the turtle lost all his energy, let the turtle die
+        set turtleEnergy turtleEnergy - 1
+        if turtleEnergy <= 0 [
+          die
+        ]
+      ]
+
+
+
+      ;if moisture of turtle >= 1, add 1 to moisture of the patch the turtle is on. Then check if the patch can grow
+      if turtleMoisture >= 1 [
+        ask patch xcor ycor [
+          set moisture moisture + 1
+
+          if pcolor != 99 [
+            ;if the patch is not dead, change the patchcolor to show growthstadium
+
+            (ifelse
+              energy >= 5 AND energy <= 10 AND moisture >= 5 AND moisture <= 10 [
+                set pcolor 33
+                set stadium stadium + 1
+              ]
+              energy >= 10 AND energy <= 15 AND moisture >= 10 AND moisture <= 15 [
+                set pcolor 66
+                set stadium stadium + 1
+              ]
+              energy >= 15 AND energy <= 20 AND moisture >= 15 AND moisture <= 20 [
+                set pcolor 63
+                set stadium stadium + 1
+              ]
+              energy >= 20 AND energy <= 25 AND moisture >= 20 AND moisture <= 25 [
+                set pcolor 46
+                set stadium stadium + 1
+              ]
+              energy >= 25 AND energy <= 30 AND moisture >= 25 AND moisture <= 30 [
+                set pcolor 43
+                set stadium stadium + 1
+              ]
+              energy >= 30 AND energy <= 35 AND moisture >= 30 AND moisture <= 35 [
+                set pcolor 25
+                set stadium stadium + 1
+            ])
+          ]
+
+
+
+        ]
+
+        ;if the turtle lost all his moisture, let the turtle die
+        set turtleMoisture turtleMoisture - 1
+        if turtleMoisture <= 0 [
+          die
+        ]
+      ]
+    ]
+  ]
   tick
 
 end
@@ -127,7 +233,7 @@ energyTurtles
 energyTurtles
 0
 100
-18.0
+69.0
 1
 1
 NIL
@@ -142,7 +248,7 @@ moistureTurtles
 moistureTurtles
 0
 100
-89.0
+68.0
 1
 1
 NIL
@@ -177,7 +283,7 @@ amountSunlight
 amountSunlight
 0
 5
-4.0
+1.0
 1
 1
 NIL
@@ -197,6 +303,13 @@ amountRain
 1
 NIL
 HORIZONTAL
+
+OUTPUT
+10
+265
+250
+511
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

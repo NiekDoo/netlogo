@@ -44,16 +44,17 @@ to go
   ;check if patches are white or orange
   if all? patches [pcolor = 99 OR pcolor = 25] [
   set checkifcomplete 1
-    stop
-  ]
 
-  ;if energy of turtle >= 1, add 1 to energy of the patch the turtle is on. Then check if the patch can grow
-  ask turtles [
-    ;if all patches are white or orange: die
-    ifelse checkifcomplete = 1 [
-      ;end functie moet hier :)
-      die
-    ][
+  ]
+  ifelse checkifcomplete = 1 [
+    ask turtles [die]
+    stop
+  ][
+
+    ;if energy of turtle >= 1, add 1 to energy of the patch the turtle is on. Then check if the patch can grow
+    ask turtles [
+      ;if all patches are white or orange: die
+
       if turtleEnergy >= 1 [
         ask patch xcor ycor [
           set energy energy + 1
@@ -219,7 +220,7 @@ energyTurtles
 energyTurtles
 0
 100
-75.0
+18.0
 1
 1
 NIL
@@ -284,7 +285,7 @@ amountRain
 amountRain
 0
 5
-3.0
+1.0
 1
 1
 NIL
